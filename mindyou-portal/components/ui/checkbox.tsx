@@ -29,7 +29,7 @@ export function Checkbox({ checked, onChange, label, className, type_ = "persona
       )}
     >
       <motion.span
-        className="relative flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-[6px] border-2 transition-colors"
+        className="relative flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-[6px] border-2 transition-colors focus-within:ring-2 focus-within:ring-ink/20 focus-within:ring-offset-2 focus-within:rounded-[6px]"
         style={{ borderColor }}
         animate={{ borderColor }}
         transition={{ duration: 0.2 }}

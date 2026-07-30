@@ -10,12 +10,17 @@ import type { AccountType } from "@/lib/brand";
 export function ForgotPasswordView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleReset = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}/create-password`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}/create-password`);
+      }, 400);
     }, 500);
   };
 
@@ -33,7 +38,7 @@ export function ForgotPasswordView({ type }: { type: AccountType }) {
 
         <form onSubmit={handleReset} className="form-field-stagger flex flex-col gap-5">
           <TextField label="Email Address" type="email" type_={type} required autoComplete="email" />
-          <Button type="submit" type_={type} loading={loading}>
+          <Button type="submit" type_={type} loading={loading} success={success}>
             Reset password
           </Button>
         </form>

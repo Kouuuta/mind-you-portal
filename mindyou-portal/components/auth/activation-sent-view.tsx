@@ -2,16 +2,36 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { Button } from "@/components/ui/button";
 import type { AccountType } from "@/lib/brand";
 
 export function ActivationSentView({ type }: { type: AccountType }) {
-  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
   const accentText = type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const id = setInterval(() => setCooldown((p) => p - 1), 1000);
+    return () => clearInterval(id);
+  }, [cooldown]);
+
+  const handleResend = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        setCooldown(60);
+      }, 400);
+    }, 500);
+  };
 
   return (
     <AuthLayout
@@ -57,9 +77,12 @@ export function ActivationSentView({ type }: { type: AccountType }) {
         <Button
           type_={type}
           className="mb-5"
-          onClick={() => router.push(`/${type}/resend-activation`)}
+          loading={loading}
+          success={success}
+          disabled={cooldown > 0}
+          onClick={handleResend}
         >
-          Resend activation email
+          {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend activation email"}
         </Button>
 
         <Link

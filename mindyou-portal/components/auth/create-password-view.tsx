@@ -21,6 +21,7 @@ export function CreatePasswordView({ type }: { type: AccountType }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [touched, setTouched] = useState(false);
 
   const allValid = useMemo(() => RULES.every((r) => r.test(password)), [password]);
@@ -33,7 +34,11 @@ export function CreatePasswordView({ type }: { type: AccountType }) {
     if (!allValid || !matches) return;
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}`);
+      }, 400);
     }, 500);
   };
 
@@ -105,7 +110,7 @@ export function CreatePasswordView({ type }: { type: AccountType }) {
             })}
           </ul>
 
-          <Button type="submit" type_={type} loading={loading} disabled={!allValid || !matches}>
+          <Button type="submit" type_={type} loading={loading} success={success} pulse={allValid && matches} disabled={!allValid || !matches}>
             Create password
           </Button>
         </form>

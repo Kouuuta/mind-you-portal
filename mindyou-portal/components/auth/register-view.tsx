@@ -11,12 +11,20 @@ import type { AccountType } from "@/lib/brand";
 export function RegisterView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const accentText =
+    type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}/activation-sent`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}/activation-sent`);
+      }, 400);
     }, 500);
   };
 
@@ -64,7 +72,7 @@ export function RegisterView({ type }: { type: AccountType }) {
             autoComplete="email"
           />
 
-          <Button type="submit" type_={type} loading={loading}>
+          <Button type="submit" type_={type} loading={loading} success={success}>
             Sign up
           </Button>
         </form>
@@ -75,7 +83,7 @@ export function RegisterView({ type }: { type: AccountType }) {
           </p>
           <Link
             href={`/${type}/login`}
-            className="text-center font-body text-[13px] font-bold tracking-wide text-personal-dark transition-opacity hover:opacity-80"
+            className={`text-center font-body text-[13px] font-bold tracking-wide ${accentText} transition-colors hover:text-ink`}
           >
             LOG IN
           </Link>
