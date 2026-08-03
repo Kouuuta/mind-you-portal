@@ -168,14 +168,16 @@ export function AccountTypeView() {
       <div className="relative hidden flex-1 bg-abyss lg:flex">
         <div className="absolute inset-0 bg-gradient-to-br from-abyss-light/40 via-transparent to-abyss/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_#0a424f40,_transparent_50%)]" />
-        <Image
-          src="/73-5048.png"
-          alt=""
-          fill
-          sizes="50vw"
-          className="object-cover"
-          priority
-        />
+        <div className="h-full w-full">
+          <Image
+            src="/73-5048.png"
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 50vw, 0vw"
+            className="object-cover object-top"
+            priority
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-abyss to-transparent" />
 
 

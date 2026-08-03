@@ -190,14 +190,7 @@ export function AuthLayout({
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
             >
-              <div
-                className="h-full w-full"
-                style={
-                  shouldReduceMotion
-                    ? undefined
-                    : { animation: "ken-burns 12s ease-in-out infinite" }
-                }
-              >
+              <div className="h-full w-full">
                 <Image
                   src={HERO_IMAGES[heroIndex]}
                   alt=""

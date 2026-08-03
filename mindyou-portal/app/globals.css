@@ -106,12 +106,6 @@
   }
 }
 
-@keyframes ken-burns {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.015); }
-  100% { transform: scale(1); }
-}
-
 @keyframes gradient-orbit {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(40px, -30px) rotate(90deg); }
