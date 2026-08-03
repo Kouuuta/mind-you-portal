@@ -10,12 +10,17 @@ import type { AccountType } from "@/lib/brand";
 export function ResendActivationView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleResend = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}/activation-sent`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}/activation-sent`);
+      }, 400);
     }, 500);
   };
 
@@ -40,7 +45,7 @@ export function ResendActivationView({ type }: { type: AccountType }) {
             autoComplete="email"
           />
 
-          <Button type="submit" type_={type} loading={loading}>
+          <Button type="submit" type_={type} loading={loading} success={success}>
             Resend email
           </Button>
         </form>

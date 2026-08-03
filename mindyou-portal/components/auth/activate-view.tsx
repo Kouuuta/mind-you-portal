@@ -11,13 +11,18 @@ import type { AccountType } from "@/lib/brand";
 export function ActivateView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const accentText = type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
 
   const handleActivate = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}/activation-sent`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}/activation-sent`);
+      }, 400);
     }, 500);
   };
 
@@ -42,7 +47,7 @@ export function ActivateView({ type }: { type: AccountType }) {
             autoComplete="email"
           />
 
-          <Button type="submit" type_={type} loading={loading}>
+          <Button type="submit" type_={type} loading={loading} success={success}>
             Send activation email
           </Button>
         </form>
@@ -53,7 +58,7 @@ export function ActivateView({ type }: { type: AccountType }) {
           </p>
           <Link
             href={`/${type}/login`}
-            className={`text-center font-body text-[13px] font-bold tracking-wide ${accentText} transition-opacity hover:opacity-80`}
+            className={`text-center font-body text-[13px] font-bold tracking-wide ${accentText} transition-colors hover:text-ink`}
           >
             SIGN IN
           </Link>

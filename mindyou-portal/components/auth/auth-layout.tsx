@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ArrowRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { AccountType } from "@/lib/brand";
 import { brand } from "@/lib/brand";
 
@@ -21,9 +22,9 @@ interface AuthLayoutProps {
 function MeshGradient() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-personal/8 blur-3xl" />
-      <div className="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-personal/5 blur-3xl" />
-      <div className="absolute left-1/3 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-enterprise/5 blur-3xl" />
+      <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-personal/8 blur-3xl animate-float" />
+      <div className="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-personal/5 blur-3xl animate-float-1" />
+      <div className="absolute left-1/3 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-enterprise/5 blur-3xl animate-float-2" />
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.03]"
         aria-hidden="true"
@@ -49,6 +50,15 @@ function MeshGradient() {
   );
 }
 
+const HERO_IMAGES = [
+  "/72-3961.png",
+  "/72-3607.png",
+  "/72-3253.png",
+  "/72-4315.png",
+  "/96-396.png",
+  "/70-3240.png",
+];
+
 export function AuthLayout({
   children,
   rightImageSrc,
@@ -60,6 +70,19 @@ export function AuthLayout({
   backHref = "/",
 }: AuthLayoutProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [heroIndex, setHeroIndex] = useState(() => {
+    const idx = HERO_IMAGES.indexOf(rightImageSrc);
+    return idx !== -1 ? idx : 0;
+  });
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const id = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 12000);
+    return () => clearInterval(id);
+  }, [shouldReduceMotion]);
+
   const b = brand[type];
   const accentGlow =
     type === "enterprise" ? "shadow-glow-enterprise" : "shadow-glow-personal";
@@ -157,14 +180,36 @@ export function AuthLayout({
             background: `radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(34, 176, 181, 0.04), transparent 50%)`,
           }}
         />
-        <Image
-          src={rightImageSrc}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 50vw, 0vw"
-          className="object-cover"
-          priority
-        />
+        <div className="absolute inset-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={heroIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <div
+                className="h-full w-full"
+                style={
+                  shouldReduceMotion
+                    ? undefined
+                    : { animation: "ken-burns 12s ease-in-out infinite" }
+                }
+              >
+                <Image
+                  src={HERO_IMAGES[heroIndex]}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 0vw"
+                  className="object-cover object-top"
+                  priority={heroIndex === 0}
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/40 to-abyss/10" />
 
         <div

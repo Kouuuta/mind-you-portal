@@ -8,9 +8,9 @@ import { HeartHandshake, Building2, Sparkles } from "lucide-react";
 function MeshGradient() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-personal/8 blur-3xl" />
-      <div className="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-enterprise/5 blur-3xl" />
-      <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-personal/5 blur-3xl" />
+      <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-personal/8 blur-3xl animate-float" />
+      <div className="absolute -bottom-40 -right-20 h-[500px] w-[500px] rounded-full bg-enterprise/5 blur-3xl animate-float-1" />
+      <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-personal/5 blur-3xl animate-float-2" />
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.02]"
         aria-hidden="true"
@@ -91,7 +91,7 @@ export function AccountTypeView() {
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 26 }}
                 onClick={() => router.push("/personal/login")}
-                className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-personal)]"
+                className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-personal)] focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-personal-dark outline-none"
                 style={{ minHeight: 190 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-personal via-personal-dark to-personal-deeper" />
@@ -124,7 +124,7 @@ export function AccountTypeView() {
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 26 }}
                 onClick={() => router.push("/enterprise/login")}
-                className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-enterprise)]"
+                className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-enterprise)] focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-enterprise-dark outline-none"
                 style={{ minHeight: 190 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-enterprise via-enterprise-dark to-enterprise-deeper" />
@@ -178,12 +178,7 @@ export function AccountTypeView() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-abyss to-transparent" />
 
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-16 left-10 right-10 flex flex-col items-start xl:bottom-20 xl:left-14"
-        ></motion.div>
+
       </div>
     </div>
   );

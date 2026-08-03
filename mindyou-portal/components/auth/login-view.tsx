@@ -28,6 +28,7 @@ export function LoginView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const copy = rightCopy[type];
   const accentText = type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
 
@@ -35,7 +36,11 @@ export function LoginView({ type }: { type: AccountType }) {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      router.push(`/${type}`);
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push(`/${type}`);
+      }, 400);
     }, 500);
   };
 
@@ -67,7 +72,7 @@ export function LoginView({ type }: { type: AccountType }) {
           </Link>
         </div>
 
-        <Button type="submit" type_={type} loading={loading} className="mb-5">
+        <Button type="submit" type_={type} loading={loading} success={success} className="mb-5">
           Log in
         </Button>
 
@@ -92,7 +97,7 @@ export function LoginView({ type }: { type: AccountType }) {
             </p>
             <Link
               href={`/${type}/activate`}
-              className={`text-center font-body text-[13px] font-bold tracking-wide ${accentText} transition-opacity hover:opacity-80`}
+              className={`text-center font-body text-[13px] font-bold tracking-wide ${accentText} transition-colors hover:text-ink`}
             >
               ACTIVATE
             </Link>
