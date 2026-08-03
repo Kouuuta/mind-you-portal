@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { HeartHandshake, Building2, Sparkles } from "lucide-react";
+import { LoadingScreen, LogoMark } from "@/components/loading/loading-screen";
 
 function MeshGradient() {
   return (
@@ -36,60 +38,93 @@ function MeshGradient() {
   );
 }
 
+// Module-scope flag: persists across client-side route navigation in a single
+// page session, but is reset on a full page load (first visit or refresh).
+let loadingPlayed = false;
+
 export function AccountTypeView() {
   const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
+  const [ready, setReady] = useState(loadingPlayed);
+
+  const completeLoading = () => {
+    loadingPlayed = true;
+    setReady(true);
+  };
 
   return (
     <div className="relative flex min-h-[100dvh] w-full bg-paper">
+      <LoadingScreen play={!loadingPlayed} onComplete={completeLoading} />
       <MeshGradient />
 
       <div className="relative z-10 flex w-full shrink-0 flex-col lg:w-[644px]">
         <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 sm:px-10">
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-10 flex flex-col items-center"
-          >
-            <Image
-              src="/73-4694.svg"
-              alt="Mind You"
-              width={226}
-              height={48}
-              className="h-8 w-auto sm:h-10"
-              priority
-            />
-          </motion.div>
+          {ready && (
+            <div className="mb-10 flex flex-col items-center">
+              <LogoMark animated={false} className="h-8 w-auto sm:h-10" />
+            </div>
+          )}
 
+          <div className="flex w-full max-w-[560px] flex-col items-center">
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={
+              ready || shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
+            }
             transition={{
-              duration: 0.45,
-              delay: 0.08,
+              duration: 0.3,
+              delay: 0.45,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="flex w-full max-w-[560px] flex-col items-center"
+            className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-personal/10 px-4 py-1.5 text-[11px] font-semibold tracking-wider text-personal-dark"
           >
-            <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-personal/10 px-4 py-1.5 text-[11px] font-semibold tracking-wider text-personal-dark">
-              <Sparkles size={12} />
-              WELCOME
-            </div>
-            <h1 className="mb-2 text-balance text-center font-display text-[34px] font-semibold leading-[1.08] text-ink sm:mb-3 sm:text-[42px] lg:text-[50px]">
-              Welcome to Mind You!
-            </h1>
-            <p className="mb-10 text-balance text-center font-body text-[16px] font-medium leading-relaxed text-ink/70 sm:mb-11 sm:text-[18px]">
-              Please choose your account type
-            </p>
+            <Sparkles size={12} />
+            WELCOME
+          </motion.div>
+          <motion.h1
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={
+              ready || shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
+            }
+            transition={{
+              duration: 0.3,
+              delay: 0.49,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="mb-2 text-balance text-center font-display text-[34px] font-semibold leading-[1.08] text-ink sm:mb-3 sm:text-[42px] lg:text-[50px]"
+          >
+            Welcome to Mind You!
+          </motion.h1>
+          <motion.p
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={
+              ready || shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
+            }
+            transition={{
+              duration: 0.3,
+              delay: 0.53,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="mb-10 text-balance text-center font-body text-[16px] font-medium leading-relaxed text-ink/70 sm:mb-11 sm:text-[18px]"
+          >
+            Please choose your account type
+          </motion.p>
 
             <div className="flex w-full flex-col justify-center gap-5 sm:flex-row sm:gap-6">
               <motion.button
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 }}
+                animate={
+                  ready || shouldReduceMotion
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : { opacity: 0, y: 12, scale: 0.98 }
+                }
+                transition={{ duration: 0.35, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={
-                  shouldReduceMotion ? undefined : { scale: 1.02, y: -3 }
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 1.02, y: -3, transition: { type: "spring", stiffness: 400, damping: 26 } }
                 }
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 26 }}
                 onClick={() => router.push("/personal/login")}
                 className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-personal)] focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-personal-dark outline-none"
                 style={{ minHeight: 190 }}
@@ -118,11 +153,19 @@ export function AccountTypeView() {
               </motion.button>
 
               <motion.button
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 }}
+                animate={
+                  ready || shouldReduceMotion
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : { opacity: 0, y: 12, scale: 0.98 }
+                }
+                transition={{ duration: 0.35, delay: 0.68, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={
-                  shouldReduceMotion ? undefined : { scale: 1.02, y: -3 }
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 1.02, y: -3, transition: { type: "spring", stiffness: 400, damping: 26 } }
                 }
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 26 }}
                 onClick={() => router.push("/enterprise/login")}
                 className="group relative flex-1 overflow-hidden rounded-2xl shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow-enterprise)] focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-enterprise-dark outline-none"
                 style={{ minHeight: 190 }}
@@ -150,10 +193,15 @@ export function AccountTypeView() {
                 <div className="absolute inset-0 bg-gradient-to-t from-white/0 via-white/0 to-white/0 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:via-white/5 group-hover:to-white/10" />
               </motion.button>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <div className="px-6 pb-6 sm:px-12 sm:pb-8">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          animate={ready || shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="px-6 pb-6 sm:px-12 sm:pb-8"
+        >
           <p className="font-body text-[10px] leading-relaxed text-ink-50 sm:text-[11px]">
             National Privacy Commission No. PIC 004-457-2025
             <br />
@@ -162,7 +210,7 @@ export function AccountTypeView() {
             &copy; 2026 Mind You Mental Health Systems, Inc. | All Rights
             Reserved
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <div className="relative hidden flex-1 bg-abyss lg:flex">
