@@ -12,7 +12,8 @@ export function ActivateView({ type }: { type: AccountType }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const accentText = type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
+  const accentText =
+    type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
 
   const handleActivate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ export function ActivateView({ type }: { type: AccountType }) {
     <AuthLayout
       type={type}
       rightImageSrc="/72-3607.png"
-      rightTitle="Welcome Back to Mind You!"
+      rightTitle="Welcome to Mind You!"
       rightSubtitle="We hope you've been getting the care you need through us. We strive to make Mind You as convenient and professional as possible, and we're always happy to help if you encounter any problems while using our service."
     >
       <div className="flex w-full flex-col">
@@ -38,16 +39,26 @@ export function ActivateView({ type }: { type: AccountType }) {
           Activate your account
         </h2>
 
-        <form onSubmit={handleActivate} className="form-field-stagger flex flex-col gap-5">
+        <form
+          onSubmit={handleActivate}
+          className="form-field-stagger flex flex-col gap-5"
+        >
           <TextField
-            label={type === "enterprise" ? "Company Email Address" : "Email Address"}
+            label={
+              type === "enterprise" ? "Company Email Address" : "Email Address"
+            }
             type="email"
             type_={type}
             required
             autoComplete="email"
           />
 
-          <Button type="submit" type_={type} loading={loading} success={success}>
+          <Button
+            type="submit"
+            type_={type}
+            loading={loading}
+            success={success}
+          >
             Send activation email
           </Button>
         </form>

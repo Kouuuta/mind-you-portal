@@ -12,13 +12,13 @@ import type { AccountType } from "@/lib/brand";
 const rightCopy: Record<AccountType, { image: string; title: string; subtitle: string }> = {
   personal: {
     image: "/72-3961.png",
-    title: "Welcome to Mind You!",
+    title: "Welcome back to Mind You!",
     subtitle:
       "We hope you've been getting the care you need through us. If your company isn't signed up for Mind You yet, please reach out to us.",
   },
   enterprise: {
     image: "/72-3961.png",
-    title: "Welcome to Mind You!",
+    title: "Welcome back to Mind You!",
     subtitle:
       "We hope you've been getting the care you need through us. Your safe space providing holistic and expert well-being programs.",
   },

@@ -18,6 +18,8 @@ interface LoadingScreenProps {
   label?: string;
   /** Minimum time (ms) the screen stays up, even if onComplete fires early. */
   minDurationMs?: number;
+  /** When false, the screen renders nothing (use to show it only once per page load). */
+  play?: boolean;
 }
 
 // Facets ordered core-outward once, at module scope — stable across renders.
@@ -166,9 +168,10 @@ export function LoadingScreen({
   onComplete,
   label = "Loading your space",
   minDurationMs = SEQUENCE_END_MS + 900,
+  play = true,
 }: LoadingScreenProps) {
   const reduceMotion = useReducedMotion();
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(play);
 
   const holdMs = useMemo(
     () => (reduceMotion ? 500 : minDurationMs),
@@ -179,12 +182,13 @@ export function LoadingScreen({
   // this on your actual async readiness (auth/session check) combined with
   // a minimum hold time so the animation never feels cut off.
   useEffect(() => {
+    if (!visible) return;
     const t = setTimeout(() => {
       setVisible(false);
       onComplete?.();
     }, holdMs);
     return () => clearTimeout(t);
-  }, [holdMs, onComplete]);
+  }, [holdMs, onComplete, visible]);
 
   return (
     <AnimatePresence>
