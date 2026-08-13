@@ -33,7 +33,7 @@ export function RegisterView({ type }: { type: AccountType }) {
       type={type}
       rightImageSrc="/72-3607.png"
       rightTitle="Welcome to Mind You!"
-      rightSubtitle="Your safe space for mental well-being. Whether you need support, guidance, or simply someone to talk to, we're here to provide confidential, compassionate care in a way that works best for you."
+      rightSubtitle="Your safe space for mental well-being, giving access to confidential, compassionate care and resources designed to support you on your well-being journey, in a way that works best for you."
       showSignUp
       backHref={`/${type}/login`}
     >

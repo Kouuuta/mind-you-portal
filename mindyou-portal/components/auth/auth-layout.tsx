@@ -11,7 +11,7 @@ import { brand } from "@/lib/brand";
 interface AuthLayoutProps {
   children: React.ReactNode;
   rightImageSrc: string;
-  rightTitle: string;
+  rightTitle?: string;
   rightSubtitle: string;
   showContactUs?: boolean;
   showSignUp?: boolean;
@@ -218,9 +218,11 @@ export function AuthLayout({
           transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-16 left-10 right-10 flex flex-col items-start xl:bottom-20 xl:left-14"
         >
-          <h1 className="mb-4 font-display text-[30px] font-semibold leading-[1.12] text-white xl:mb-5 xl:text-[40px]">
-            {rightTitle}
-          </h1>
+          {rightTitle && (
+            <h1 className="mb-4 font-display text-[30px] font-semibold leading-[1.12] text-white xl:mb-5 xl:text-[40px]">
+              {rightTitle}
+            </h1>
+          )}
           <p className="mb-6 max-w-[440px] font-body text-[14px] font-medium leading-[1.65] text-white/80 xl:mb-8 xl:text-[15px]">
             {rightSubtitle}
           </p>

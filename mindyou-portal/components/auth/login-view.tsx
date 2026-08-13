@@ -15,15 +15,15 @@ const rightCopy: Record<
 > = {
   personal: {
     image: "/72-3961.png",
-    title: "Welcome Back to Mind You!",
+    title: "Welcome back to Mind You!",
     subtitle:
-      "We hope you've been getting the care you need through us. If your company isn't signed up for Mind You yet, please reach out to us.",
+      "Your safe space for mental well-being. Whether you need support, guidance, or simply someone to talk to, we're here to provide confidential, compassionate care in a way that works best for you.",
   },
   enterprise: {
     image: "/72-3961.png",
-    title: "Welcome Back to Mind You!",
+    title: "Welcome back to Mind You!",
     subtitle:
-      "We hope you've been getting the care you need through us. Your safe space providing holistic and expert well-being programs.",
+      "Your safe space for well-being at work. Whether you're looking for support, guidance, or simply someone to talk to, we're here to provide confidential, compassionate care that fits your needs, wherever you are in your journey.",
   },
 };
 

@@ -32,7 +32,11 @@ export function ActivateView({ type }: { type: AccountType }) {
       type={type}
       rightImageSrc="/72-3607.png"
       rightTitle="Welcome to Mind You!"
-      rightSubtitle="Your safe space for mental well-being. Whether you need support, guidance, or simply someone to talk to, we're here to provide confidential, compassionate care in a way that works best for you."
+      rightSubtitle={
+        type === "enterprise"
+          ? "Your safe space for well-being at work. As part of your organization's commitment to employee well-being, you have access to confidential, compassionate care whenever you need support, guidance, or simply someone to talk to."
+          : "Your safe space for mental well-being. Whether you need support, guidance, or simply someone to talk to, we're here to provide confidential, compassionate care in a way that works best for you."
+      }
     >
       <div className="flex w-full flex-col">
         <h2 className="mb-8 font-display text-[21px] font-semibold tracking-tight text-ink sm:mb-9 sm:text-[23px]">
