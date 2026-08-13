@@ -9,16 +9,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import type { AccountType } from "@/lib/brand";
 
-const rightCopy: Record<AccountType, { image: string; title: string; subtitle: string }> = {
+const rightCopy: Record<
+  AccountType,
+  { image: string; title: string; subtitle: string }
+> = {
   personal: {
     image: "/72-3961.png",
-    title: "Welcome back to Mind You!",
+    title: "Welcome Back to Mind You!",
     subtitle:
       "We hope you've been getting the care you need through us. If your company isn't signed up for Mind You yet, please reach out to us.",
   },
   enterprise: {
     image: "/72-3961.png",
-    title: "Welcome back to Mind You!",
+    title: "Welcome Back to Mind You!",
     subtitle:
       "We hope you've been getting the care you need through us. Your safe space providing holistic and expert well-being programs.",
   },
@@ -30,7 +33,8 @@ export function LoginView({ type }: { type: AccountType }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const copy = rightCopy[type];
-  const accentText = type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
+  const accentText =
+    type === "enterprise" ? "text-enterprise-dark" : "text-personal-dark";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,18 +56,38 @@ export function LoginView({ type }: { type: AccountType }) {
       rightSubtitle={copy.subtitle}
       showSignUp={type === "personal"}
     >
-      <form onSubmit={handleSubmit} className="form-field-stagger flex w-full flex-col">
+      <form
+        onSubmit={handleSubmit}
+        className="form-field-stagger flex w-full flex-col"
+      >
         <h2 className="mb-7 font-display text-[21px] font-semibold tracking-tight text-ink sm:mb-8 sm:text-[23px]">
           Log in
         </h2>
 
         <div className="mb-6 flex flex-col gap-4">
-          <TextField label="Email Address" type="email" type_={type} required autoComplete="email" />
-          <TextField label="Password" type="password" type_={type} required autoComplete="current-password" />
+          <TextField
+            label="Email Address"
+            type="email"
+            type_={type}
+            required
+            autoComplete="email"
+          />
+          <TextField
+            label="Password"
+            type="password"
+            type_={type}
+            required
+            autoComplete="current-password"
+          />
         </div>
 
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <Checkbox checked={keepLoggedIn} onChange={setKeepLoggedIn} label="Keep me logged in" type_={type} />
+          <Checkbox
+            checked={keepLoggedIn}
+            onChange={setKeepLoggedIn}
+            label="Keep me logged in"
+            type_={type}
+          />
           <Link
             href={`/${type}/forgot-password`}
             className="font-body text-[13px] font-medium text-ink/50 transition-colors hover:text-ink"
@@ -72,7 +96,13 @@ export function LoginView({ type }: { type: AccountType }) {
           </Link>
         </div>
 
-        <Button type="submit" type_={type} loading={loading} success={success} className="mb-5">
+        <Button
+          type="submit"
+          type_={type}
+          loading={loading}
+          success={success}
+          className="mb-5"
+        >
           Log in
         </Button>
 
