@@ -32,7 +32,7 @@ export function RegisterView({ type }: { type: AccountType }) {
     <AuthLayout
       type={type}
       rightImageSrc="/72-3607.png"
-      rightTitle="Welcome Back to Mind You!"
+      rightTitle="Welcome to Mind You!"
       rightSubtitle="We hope you've been getting the care you need through us. We strive to make Mind You as convenient and professional as possible, and we're always happy to help if you encounter any problems while using our service."
       showSignUp
       backHref={`/${type}/login`}
@@ -42,7 +42,10 @@ export function RegisterView({ type }: { type: AccountType }) {
           Register an account
         </h2>
 
-        <form onSubmit={handleSignUp} className="form-field-stagger flex flex-col gap-4">
+        <form
+          onSubmit={handleSignUp}
+          className="form-field-stagger flex flex-col gap-4"
+        >
           <TextField
             label="First Name"
             type="text"
@@ -72,7 +75,12 @@ export function RegisterView({ type }: { type: AccountType }) {
             autoComplete="email"
           />
 
-          <Button type="submit" type_={type} loading={loading} success={success}>
+          <Button
+            type="submit"
+            type_={type}
+            loading={loading}
+            success={success}
+          >
             Sign up
           </Button>
         </form>

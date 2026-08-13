@@ -14,8 +14,6 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 interface LoadingScreenProps {
   /** Called once the full entrance choreography has finished playing. */
   onComplete?: () => void;
-  /** Label under the mark while loading. */
-  label?: string;
   /** Minimum time (ms) the screen stays up, even if onComplete fires early. */
   minDurationMs?: number;
   /** When false, the screen renders nothing (use to show it only once per page load). */
@@ -166,7 +164,6 @@ export function LogoMark({
 
 export function LoadingScreen({
   onComplete,
-  label = "Loading your space",
   minDurationMs = SEQUENCE_END_MS + 900,
   play = true,
 }: LoadingScreenProps) {
@@ -204,36 +201,6 @@ export function LoadingScreen({
           <div className="w-[min(58vw,320px)]">
             <LogoMark animated layoutId="brand-logo" className="w-full" />
           </div>
-
-          <motion.div
-            className="flex items-center gap-2.5"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: (SEQUENCE_END_MS + 100) / 1000,
-              ease: EASE_OUT,
-            }}
-          >
-            <span className="text-[12.5px] font-medium uppercase tracking-[0.09em] text-[#002E39]/60">
-              {label}
-            </span>
-            <span className="relative h-0.5 w-[120px] overflow-hidden rounded-full bg-[#002E39]/10">
-              <motion.span
-                className="absolute inset-y-0 left-0 rounded-full"
-                style={{
-                  background: "linear-gradient(90deg, #45C3C6, #8FE0E2)",
-                }}
-                initial={{ right: "100%" }}
-                animate={{ right: "0%" }}
-                transition={{
-                  duration: 1.7,
-                  delay: (SEQUENCE_END_MS + 150) / 1000,
-                  ease: [0.77, 0, 0.175, 1],
-                }}
-              />
-            </span>
-          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
